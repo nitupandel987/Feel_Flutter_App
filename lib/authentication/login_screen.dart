@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
+import '../global.dart';
 import '../widgets/input_text_widget.dart';
+import 'authentication_controller.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -18,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen>
 {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passTextEditingController = TextEditingController();
-  bool showProgressBar = false;
+  var authenticationController = AuthenticationController.instanceAuth;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,12 +115,21 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                     child: InkWell(
                       onTap: (){
-                        setState(() {
-                          showProgressBar = true;
-                        });
+
 
                         //login user now
+                        if(emailTextEditingController.text.isNotEmpty
+                            && passTextEditingController.text.isNotEmpty){
+                          setState(() {
+                            showProgressBar = true;
+                          });
 
+                          authenticationController.loginUserNow(
+                            emailTextEditingController.text,
+                            passTextEditingController.text,
+                          );
+
+                        }
                       },
 
                       child: const Center(

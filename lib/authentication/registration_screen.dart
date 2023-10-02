@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
+import '../global.dart';
+
 class RegistrationScreen extends StatefulWidget {
 
     const RegistrationScreen({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passTextEditingController = TextEditingController();
-  bool showProgressBar = false;
+
   var authenticationController = AuthenticationController.instanceAuth;
 
   @override
@@ -152,10 +154,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                      ),
                      child: InkWell(
                        onTap: (){
-                         setState(() {
-                           showProgressBar = true;
-                         });
-                         //login user now
+
+                         if(authenticationController.profileImage!=null
+                             && userNameTextEditingController.text.isNotEmpty
+                             && emailTextEditingController.text.isNotEmpty
+                             && passTextEditingController.text.isNotEmpty)
+                         {
+                           setState(() {
+                             showProgressBar = true;
+                           });
+                           //create a new account for user
+                           authenticationController.createAccountForNewUser(
+                               authenticationController.profileImage!,
+                               userNameTextEditingController.text,
+                               emailTextEditingController.text,
+                               passTextEditingController.text
+                           );
+
+                         }
+
                        },
                        child: const Center(
                          child: Text(
