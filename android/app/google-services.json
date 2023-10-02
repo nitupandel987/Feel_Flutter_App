@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "646985595686",
+    "project_id": "feel-project-eeb53",
+    "storage_bucket": "feel-project-eeb53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646985595686:android:f85aec9038342ebfbcdfe7",
+        "android_client_info": {
+          "package_name": "com.feel.feel_flutter_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGwfA3VfWUf3VIggWsqwEj_GcI3bTiY4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
