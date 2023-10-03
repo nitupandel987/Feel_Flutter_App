@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
         scaffoldBackgroundColor: Colors.black,
+
+
       ),
       home: LoginScreen(),
     );

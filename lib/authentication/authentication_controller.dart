@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:feel/Home/home_screen.dart';
 import 'package:feel/authentication/login_screen.dart';
 import 'package:feel/authentication/registration_screen.dart';
 import 'package:feel/global.dart';
@@ -13,7 +14,8 @@ import 'package:image_picker/image_picker.dart';
 import 'user.dart' as userModel ;
 
 class AuthenticationController extends GetxController{
-   static AuthenticationController instanceAuth = Get.find();
+  static AuthenticationController instanceAuth = Get.find();
+  // late Rx<User?> _currenUser;
   late Rx<File?> _pickedFile;
   File? get profileImage => _pickedFile.value;
   void chooseImageFromGallery() async{
@@ -64,6 +66,8 @@ class AuthenticationController extends GetxController{
           .set(user.toJson());
       Get.snackbar("Account Created Successfull",
           "Congratulations! Account has been created!");
+      showProgressBar = false;
+      Get.to(LoginScreen());
 
     }
     catch(error){
@@ -82,7 +86,6 @@ class AuthenticationController extends GetxController{
      String downloadUrlOfUploadedImage =  await taskSnapshot.ref.getDownloadURL();
      return downloadUrlOfUploadedImage;
    }
-
   void loginUserNow(String userEmail, String userPassword) async{
     try{
 
@@ -92,8 +95,8 @@ class AuthenticationController extends GetxController{
       Get.snackbar("Logged in Successfully",
           "You are in!");
       showProgressBar = false;
-      Get.to(RegistrationScreen());
-       
+      Get.to(HomeScreen());
+
     }
 
     catch(error){
@@ -103,4 +106,21 @@ class AuthenticationController extends GetxController{
       Get.to(LoginScreen());
     }
   }
+
+  // Maintain the state of user, when the app is opened
+  goToScreen(User? currentUser){
+    //when user is not already logged in
+    if(currentUser == null){
+      Get.offAll(LoginScreen());
+    }
+    //when user is already logged in
+    else{
+      Get.offAll(HomeScreen());
+    }
+  }
+
+
+
+
+
 }
