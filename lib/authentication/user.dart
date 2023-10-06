@@ -11,6 +11,8 @@ class User
   String? instagram;
   String? twitter;
   String? facebook;
+  String? gender;
+
 
   User({
     this.name,
@@ -21,6 +23,7 @@ class User
     this.facebook,
     this.twitter,
     this.instagram,
+    this.gender,
 
   });
 
@@ -33,6 +36,7 @@ class User
     "facebook" : facebook,
     "twitter" : twitter,
     "instagram" : instagram,
+    "gender" : gender,
   };
 
   static User fromSnap(DocumentSnapshot snapshot){
@@ -41,6 +45,7 @@ class User
       name: dataSnapshot["name"],
       uid: dataSnapshot["uid"],
       email: dataSnapshot["email"],
+      gender:dataSnapshot["gender"],
       image: dataSnapshot["image"],
       youtube: dataSnapshot["youtube"],
       twitter: dataSnapshot["twitter"],

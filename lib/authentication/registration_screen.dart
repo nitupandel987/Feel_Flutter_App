@@ -23,6 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passTextEditingController = TextEditingController();
 
   var authenticationController = AuthenticationController.instanceAuth;
+  String? selectedGender;
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +102,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  height: 25,
                ),
 
+
+// Gender dropdown menu
+               Container(
+                 width: MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20),
+                 child: DropdownButtonFormField<String>(
+                   value: selectedGender,
+                   onChanged: (value) {
+                     setState(() {
+                       selectedGender = value;
+                     });
+                   },
+                   items: ['Male', 'Female', 'Other']
+                       .map<DropdownMenuItem<String>>((String value) {
+                     return DropdownMenuItem<String>(
+                       value: value,
+                       child: Text(value),
+                     );
+                   }).toList(),
+                   decoration: InputDecoration(
+                     labelText: 'Gender',
+                     hintText: 'Select Gender',
+                     prefixIcon: Icon(Icons.person_outline),
+                     border: OutlineInputBorder(
+                       borderRadius: BorderRadius.circular(10.0),
+                     ),
+                   ),
+                 ),
+               ),
                //Email
                Container(
                  width:  MediaQuery.of(context).size.width,
@@ -109,11 +140,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    lableString: "Email",
                    iconData: Icons.email_outlined,
                    isObscure: false,
-
                    assetRefrence: '',
-
                  ),
-
                ),
 
 
@@ -168,7 +196,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                authenticationController.profileImage!,
                                userNameTextEditingController.text,
                                emailTextEditingController.text,
-                               passTextEditingController.text
+                               passTextEditingController.text,
+                             selectedGender ?? '',
                            );
 
                          }

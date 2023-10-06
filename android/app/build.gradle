@@ -67,4 +67,9 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+
+    //I add this to resolve the error ---> but still getting the same error
+    implementation 'com.otaliastudios:transcoder:0.9.1'
+
+}

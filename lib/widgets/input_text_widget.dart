@@ -14,7 +14,7 @@ class InputTextWidget extends StatelessWidget {
     required this.lableString,
     required this.isObscure,
 
-});
+  });
 
   @override
   Widget build(BuildContext context)

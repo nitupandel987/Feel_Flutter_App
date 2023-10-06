@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:feel/Home/upload_video/upload_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UploadVideoScreen extends StatefulWidget {
   const UploadVideoScreen({super.key});
@@ -10,15 +14,31 @@ class UploadVideoScreen extends StatefulWidget {
 
 
 class _UploadVideoScreenState extends State<UploadVideoScreen> {
+
+  getVideoFile(ImageSource sourceImg) async{
+   final videoFile = await ImagePicker().pickVideo(source: sourceImg);
+
+   if(videoFile != null){
+     Get.to(
+       //Video Confirmation Screen
+       UploadForm(
+           videoFile: File(videoFile.path),
+           videoPath:  videoFile.path,
+       ),
+     );
+   }
+  }
+
  displayDialogBox(){
    return showDialog(
        context: context,
        builder: (context) => SimpleDialog(
          children: [
+           
            //For Gallery
            SimpleDialogOption(
              onPressed: (){
-
+                getVideoFile(ImageSource.gallery);
              },
              child: const Row(
                children: [
@@ -46,7 +66,7 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
            //For Camera
            SimpleDialogOption(
              onPressed: (){
-
+               getVideoFile(ImageSource.camera);
              },
              child: const Row(
                children: [

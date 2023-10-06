@@ -40,7 +40,7 @@ class AuthenticationController extends GetxController{
     _pickedFile =  Rx<File?>(File(pickedImageFile!.path));
   }
 
-  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async{
+  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userGender) async{
     try{
 
       //1.create user in the firebase authentication
@@ -58,13 +58,14 @@ class AuthenticationController extends GetxController{
         email: userEmail,
         image: imageDownloadUrl,
         uid: credential.user!.uid,
+        gender: userGender,
 
       );
       await FirebaseFirestore.instance
           .collection("users")
           .doc(credential.user!.uid)
           .set(user.toJson());
-      Get.snackbar("Account Created Successfull",
+      Get.snackbar("Account Created Successfully",
           "Congratulations! Account has been created!");
       showProgressBar = false;
       Get.to(LoginScreen());
