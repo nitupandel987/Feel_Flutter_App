@@ -40,7 +40,7 @@ class AuthenticationController extends GetxController{
     _pickedFile =  Rx<File?>(File(pickedImageFile!.path));
   }
 
-  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userGender) async{
+  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userdescription,String userGender, ) async{
     try{
 
       //1.create user in the firebase authentication
@@ -58,6 +58,7 @@ class AuthenticationController extends GetxController{
         email: userEmail,
         image: imageDownloadUrl,
         uid: credential.user!.uid,
+        description: userdescription,
         gender: userGender,
 
       );
