@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white12,
+        unselectedItemColor: Colors.white30,
         currentIndex: screenIndex,
         items: const [
           BottomNavigationBarItem(
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 30),
+            icon: Icon(Icons.search, size: 30),
             label: "Discover",
           ),
           BottomNavigationBarItem(
