@@ -7,7 +7,6 @@ class User
   String? uid;
   String? image;
   String? email;
-  String? description;
   String? youtube;
   String? instagram;
   String? twitter;
@@ -22,10 +21,9 @@ class User
     this.email,
     this.youtube,
     this.facebook,
-    this.description,
     this.twitter,
     this.instagram,
-    this.gender
+    this.gender,
 
   });
 
@@ -37,9 +35,8 @@ class User
     "youtube" : youtube,
     "facebook" : facebook,
     "twitter" : twitter,
-    "description":description,
     "instagram" : instagram,
-    "gender":gender
+    "gender" : gender,
   };
 
   static User fromSnap(DocumentSnapshot snapshot){
@@ -48,13 +45,13 @@ class User
       name: dataSnapshot["name"],
       uid: dataSnapshot["uid"],
       email: dataSnapshot["email"],
+      gender:dataSnapshot["gender"],
       image: dataSnapshot["image"],
       youtube: dataSnapshot["youtube"],
       twitter: dataSnapshot["twitter"],
       instagram: dataSnapshot["instagram"],
-      facebook: dataSnapshot["facebook"],
-        description: dataSnapshot["description"],
-      gender: dataSnapshot["gender"]
+      facebook: dataSnapshot["facebook"]
+
     );
   }
 

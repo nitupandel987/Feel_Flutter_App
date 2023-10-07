@@ -28,10 +28,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Learning From Shiva',
+      title: 'Feel Educare',
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.black,
 
 
       ),
