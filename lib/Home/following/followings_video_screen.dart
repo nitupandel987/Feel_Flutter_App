@@ -13,9 +13,9 @@ class _FollowingVideoScreenState extends State<FollowingVideoScreen> {
     return Scaffold(
       body: Center(
         child: Text(
-          "Following Video Screen",
+          "Folllowing Video Screen",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

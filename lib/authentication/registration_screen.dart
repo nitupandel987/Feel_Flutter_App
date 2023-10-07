@@ -10,6 +10,8 @@ import '../global.dart';
 
 class RegistrationScreen extends StatefulWidget {
 
+    const RegistrationScreen({Key? key}) : super(key: key);
+
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
@@ -17,44 +19,48 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   TextEditingController userNameTextEditingController = TextEditingController();
-  TextEditingController desTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passTextEditingController = TextEditingController();
-  TextEditingController emailTextEditingController=TextEditingController();
- 
-  var authenticationController = AuthenticationController.instanceAuth;
 
-  String dropdownValue = "Male";
+  var authenticationController = AuthenticationController.instanceAuth;
+  String? selectedGender;
 
 
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-       resizeToAvoidBottomInset : false,
-       body: Container(
-     decoration: const BoxDecoration(
-     image: DecorationImage(
-         image: AssetImage( "images/bg.png"),fit: BoxFit.cover
-    ),
-    ),
+       body: SingleChildScrollView(
          child: Center(
            child: Column(
              children: [
 
                const SizedBox(
-                 height: 80,
+                 height: 100,
                ),
+
+
 
                Text(
                  "Create Account",
                  style: GoogleFonts.aBeeZee(
                    fontSize: 34,
-                   color: Colors.lightBlue,
+                   color: Colors.grey,
                     fontWeight: FontWeight.bold,
                  ) ,
                ),
 
+
+               Text(
+                 "To get Started Now",
+                 style: GoogleFonts.aBeeZee(
+                   fontSize: 34,
+                   color: Colors.grey,
+                 ) ,
+               ),
+
+
                const SizedBox(
-                 height: 10,
+                 height: 100,
                ),
 
                //profile avatar
@@ -63,20 +69,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  //Allow User to choose image
                   authenticationController.chooseImageFromGallery();
                  },
-
                  child: const CircleAvatar(
                    radius: 80,
-                   backgroundImage:
-
-                   AssetImage(
-                     "images/profile.jpg"
+                   backgroundImage: AssetImage(
+                     "images/profile.png"
                    ),
-                   backgroundColor: Colors.white,
+                   backgroundColor: Colors.black,
                  ),
                ),
 
                const SizedBox(
-                 height: 15,
+                 height: 25,
                ),
 
                 //User Name
@@ -92,79 +95,58 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    assetRefrence: '',
 
                  ),
+
                ),
 
                const SizedBox(
-                 height: 15,
+                 height: 25,
                ),
 
+
+// Gender dropdown menu
+               Container(
+                 width: MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20),
+                 child: DropdownButtonFormField<String>(
+                   value: selectedGender,
+                   onChanged: (value) {
+                     setState(() {
+                       selectedGender = value;
+                     });
+                   },
+                   items: ['Male', 'Female', 'Other']
+                       .map<DropdownMenuItem<String>>((String value) {
+                     return DropdownMenuItem<String>(
+                       value: value,
+                       child: Text(value),
+                     );
+                   }).toList(),
+                   decoration: InputDecoration(
+                     labelText: 'Gender',
+                     hintText: 'Select Gender',
+                     prefixIcon: Icon(Icons.person_outline),
+                     border: OutlineInputBorder(
+                       borderRadius: BorderRadius.circular(10.0),
+                     ),
+                   ),
+                 ),
+               ),
                //Email
                Container(
                  width:  MediaQuery.of(context).size.width,
                  margin: const EdgeInsets.symmetric(horizontal: 20) ,
                  child: InputTextWidget(
-                   textEditingController:desTextEditingController,
-                   lableString: "Description",
-                   iconData: Icons.description_outlined,
+                   textEditingController:emailTextEditingController,
+                   lableString: "Email",
+                   iconData: Icons.email_outlined,
                    isObscure: false,
                    assetRefrence: '',
-
                  ),
-
                ),
 
 
                const SizedBox(
-                 height: 15,
-               ),
-
-                     Container(
-                 width:  MediaQuery.of(context).size.width,
-                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
-                 child: DropdownButtonFormField<String>(
-
-                   decoration: InputDecoration(
-                     prefixIcon: Icon(Icons.person),
-                     labelText: 'Select Gender',
-                     labelStyle: const TextStyle(
-                       fontSize: 18,
-                     ),
-                     enabledBorder: OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(6),
-                         borderSide: const BorderSide(
-                           color: Colors.grey,
-                         )
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(6),
-                         borderSide: const BorderSide(
-                           color: Colors.grey,
-                         )
-                     ),
-
-                   ),
-                   value: dropdownValue,
-                   items: <String>["Male", "Female", "Others"]
-                       .map<DropdownMenuItem<String>>((String value) {
-                     return DropdownMenuItem<String>(
-                       value: value,
-                       child: Text(
-                         value,
-                         style: TextStyle(fontSize: 16, color: Colors.black),
-                       ),
-                     );
-                   }).toList(),
-                   // Step 5.
-                   onChanged: (String? newValue) {
-                     setState(() {
-                       dropdownValue = newValue!;
-                     });
-                   },
-                 ),
-         ),
-
-               const SizedBox(
-                 height: 15,
+                 height: 25,
                ),
 
                //password
@@ -177,26 +159,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    iconData: Icons.password_outlined,
                    isObscure: true, assetRefrence: '',
                  ),
-               ),
-
-               const SizedBox(
-                 height: 15,
-               ),
-
-
-               Container(
-                 width:  MediaQuery.of(context).size.width,
-                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
-                 child: InputTextWidget(
-                   textEditingController:emailTextEditingController,
-                   lableString: "Email",
-                   iconData: Icons.email_outlined,
-                   isObscure: false,
-
-                   assetRefrence: '',
-
-                 ),
-
                ),
 
                const SizedBox(
@@ -213,8 +175,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                      width: MediaQuery.of(context).size.width - 38,
                      height: 54,
                      decoration: const BoxDecoration(
-                         color: Colors.blueAccent,
-
+                         color: Colors.white,
                          borderRadius: BorderRadius.all(
                              Radius.circular(10)
                          )
@@ -226,7 +187,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                              && userNameTextEditingController.text.isNotEmpty
                              && emailTextEditingController.text.isNotEmpty
                              && passTextEditingController.text.isNotEmpty)
-
                          {
                            setState(() {
                              showProgressBar = true;
@@ -237,9 +197,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                userNameTextEditingController.text,
                                emailTextEditingController.text,
                                passTextEditingController.text,
-                                desTextEditingController.text,
-                                dropdownValue,
-
+                             selectedGender ?? '',
                            );
 
                          }
@@ -277,10 +235,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            //send user to signup screen
                            Get.to(LoginScreen());
                          },
-                         child: const Text("Login",
+                         child: const Text("Login Now",
                            style: TextStyle(
                                fontSize: 18,
-                               color: Colors.black, // font color
+                               color: Colors.white,
                                fontWeight: FontWeight.bold
                            ),),
                        )
@@ -293,9 +251,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    progressColors: [
                      Colors.green,
                      Colors.blueAccent,
+                     Colors.red,
+                     Colors.amber,
+                     Colors.purpleAccent
                    ],
                    animationDuration: 3,
                    backColor: Colors.white30,
+
                  ),
                )
              ],

@@ -13,9 +13,9 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: Center(
         child: Text(
-          "Discover Video Screen",
+          "Folllowing Video Screen",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

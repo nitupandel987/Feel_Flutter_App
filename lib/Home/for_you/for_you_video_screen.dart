@@ -15,7 +15,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
         child: Text(
           "For You  Video Screen",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

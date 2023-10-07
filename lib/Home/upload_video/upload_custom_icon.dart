@@ -14,7 +14,7 @@ class UploadCustomIcon extends StatelessWidget {
             margin: const EdgeInsets.only(left:12),
             width: 40,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(200, 250, 45, 108),
+              color: const Color.fromARGB(255, 250, 45, 108),
               borderRadius: BorderRadius.circular(8)
             ),
           ),
@@ -22,7 +22,7 @@ class UploadCustomIcon extends StatelessWidget {
             margin: const EdgeInsets.only(right:12),
             width: 40,
             decoration: BoxDecoration(
-                color: const Color.fromARGB(200, 32, 211, 234),
+                color: const Color.fromARGB(255, 32, 211, 234),
                 borderRadius: BorderRadius.circular(8)
             ),
           ),
@@ -32,7 +32,7 @@ class UploadCustomIcon extends StatelessWidget {
               height: double.infinity,
               width: 40,
               decoration: BoxDecoration(
-                color: Colors.white30,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(
