@@ -15,7 +15,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Text(
           "Profile Video Screen",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
