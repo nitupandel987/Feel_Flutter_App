@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
-
+import 'package:intl/intl.dart';
 import '../global.dart';
 
 class RegistrationScreen extends StatefulWidget {
-
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
@@ -20,28 +19,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController desTextEditingController = TextEditingController();
   TextEditingController passTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController=TextEditingController();
- 
+  TextEditingController dobController = TextEditingController();
   var authenticationController = AuthenticationController.instanceAuth;
-
   String dropdownValue = "Male";
-
 
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-       resizeToAvoidBottomInset : false,
-       body: Container(
-     decoration: const BoxDecoration(
-     image: DecorationImage(
-         image: AssetImage( "images/bg.png"),fit: BoxFit.cover
-    ),
-    ),
+       body: Stack(
+         children:[
+    //      Container(
+    //          decoration: BoxDecoration(
+    //          image: DecorationImage(
+    //            image: AssetImage( "images/bg.png"),fit: BoxFit.fill,
+    // ),
+    // ),
+    //  // yhan
+    // ),
+         SingleChildScrollView(
          child: Center(
            child: Column(
              children: [
 
                const SizedBox(
-                 height: 80,
+                 height: 50,
                ),
 
                Text(
@@ -98,25 +99,53 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  height: 15,
                ),
 
-               //Email
                Container(
                  width:  MediaQuery.of(context).size.width,
                  margin: const EdgeInsets.symmetric(horizontal: 20) ,
-                 child: InputTextWidget(
-                   textEditingController:desTextEditingController,
-                   lableString: "Description",
-                   iconData: Icons.description_outlined,
-                   isObscure: false,
-                   assetRefrence: '',
+                 child: TextField(
+                   controller: dobController,
+                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.person),
+                     labelText: 'Select DateofBirth',
+                     labelStyle: const TextStyle(
+                       fontSize: 18,
+                     ),
+                     enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+
+                   ),
+                   style: TextStyle(fontSize: 16, color: Colors.black),
+                         onTap: () async{
+                     DateTime? pickeddate=await showDatePicker(
+                         context: context,
+                         initialDate: DateTime.now(),
+                         firstDate: DateTime(1990),
+                         lastDate: DateTime.now());
+                     if(pickeddate!=null){
+                       setState(() {
+                         dobController.text=DateFormat('yyyy-MM-dd').format(pickeddate);
+                       });
+                     }
+                   },
 
                  ),
-
                ),
-
 
                const SizedBox(
                  height: 15,
                ),
+
+               //Email
 
                      Container(
                  width:  MediaQuery.of(context).size.width,
@@ -167,22 +196,40 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  height: 15,
                ),
 
-               //password
                Container(
                  width:  MediaQuery.of(context).size.width,
-                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                 child: InputTextWidget(
-                   textEditingController:passTextEditingController,
-                   lableString: "Password",
-                   iconData: Icons.password_outlined,
-                   isObscure: true, assetRefrence: '',
+                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
+                 child: TextField(
+                   controller: desTextEditingController,
+                   maxLines: 2,
+                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.description),
+                     labelText: 'Description',
+                     labelStyle: const TextStyle(
+                       fontSize: 18,
+                     ),
+                     enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+
+                   ),
+                   style: TextStyle(fontSize: 16, color: Colors.black),
                  ),
                ),
+
 
                const SizedBox(
                  height: 15,
                ),
-
 
                Container(
                  width:  MediaQuery.of(context).size.width,
@@ -200,7 +247,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                ),
 
                const SizedBox(
-                 height: 25,
+                 height: 15,
+               ),
+               Container(
+                 width:  MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20),
+                 child: InputTextWidget(
+                   textEditingController:passTextEditingController,
+                   lableString: "Password",
+                   iconData: Icons.password_outlined,
+                   isObscure: true, assetRefrence: '',
+                 ),
+               ),
+
+               const SizedBox(
+                 height: 15,
                ),
 
                //Login Button
@@ -239,6 +300,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                passTextEditingController.text,
                                 desTextEditingController.text,
                                 dropdownValue,
+                             dobController.text,
 
                            );
 
@@ -272,6 +334,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            color: Colors.grey,
                            fontSize: 16,
                          ),),
+
+                       const SizedBox(
+                         height: 30,
+                       ),
+
                        InkWell(
                          onTap: (){
                            //send user to signup screen
@@ -286,6 +353,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                        )
                      ],
                    ),
+                   const SizedBox(
+                     height: 80,
+                   ),
+
                  ],
                ) : Container(
                  //show animation
@@ -297,11 +368,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    animationDuration: 3,
                    backColor: Colors.white30,
                  ),
-               )
+
+               ),
              ],
            ),
          ),
        ),
+    ],
+     ),
      );
   }
 }

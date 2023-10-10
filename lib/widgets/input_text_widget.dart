@@ -34,6 +34,7 @@ class InputTextWidget extends StatelessWidget {
           fontSize: 18,
         ),
         enabledBorder: OutlineInputBorder(
+
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(
               color: Colors.grey,

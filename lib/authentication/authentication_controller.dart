@@ -15,7 +15,7 @@ import 'user.dart' as userModel ;
 
 class AuthenticationController extends GetxController{
   static AuthenticationController instanceAuth = Get.find();
-  // late Rx<User?> _currenUser;
+  late Rx<User?> _currentUser;
   late Rx<File?> _pickedFile;
   File? get profileImage => _pickedFile.value;
   void chooseImageFromGallery() async{
@@ -40,7 +40,17 @@ class AuthenticationController extends GetxController{
     _pickedFile =  Rx<File?>(File(pickedImageFile!.path));
   }
 
-  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userdescription,String userGender, ) async{
+  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userdescription,String userGender, String userdob) async{
+    // Define your password requirements here
+    final RegExp passwordRegExp = RegExp(r'^(?=.[0-9])(?=.[!@#$%^&])(?=.[a-zA-Z]).{8,}$');
+
+    if (!passwordRegExp.hasMatch(userPassword)) {
+      Get.snackbar("Password Requirements",
+          "Password must contain at least 8 characters, including numbers, special characters, and uppercase letters.");
+      return; // Return without creating the account
+    }
+
+
     try{
 
       //1.create user in the firebase authentication
@@ -60,6 +70,7 @@ class AuthenticationController extends GetxController{
         uid: credential.user!.uid,
         description: userdescription,
         gender: userGender,
+        dob: userdob
 
       );
       await FirebaseFirestore.instance
@@ -76,7 +87,7 @@ class AuthenticationController extends GetxController{
       Get.snackbar("Account Creation UnSuccessfull",
           "Error Occurred while creating account. Try Again");
       showProgressBar = false;
-      Get.to(LoginScreen());
+      // Get.to(LoginScreen());
     }
   }
   Future<String> uploadImageToStorage(File imageFile) async{
@@ -97,7 +108,7 @@ class AuthenticationController extends GetxController{
       Get.snackbar("Logged in Successfully",
           "You are in!");
       showProgressBar = false;
-      Get.to(HomeScreen());
+      // Get.to(HomeScreen());
 
     }
 
@@ -121,8 +132,11 @@ class AuthenticationController extends GetxController{
     }
   }
 
+  void onReady(){
+   super.onReady();
+   _currentUser=Rx<User?>(FirebaseAuth.instance.currentUser);
+   _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+   ever(_currentUser,goToScreen);
 
-
-
-
+  }
 }
