@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
-
 class InputTextWidget extends StatelessWidget {
+
   final TextEditingController textEditingController;
   final IconData? iconData;
   final String? assetRefrence;
-  final String lableString;
+  final String? lableString;
   final bool isObscure;
 
-  InputTextWidget(
-      {
-        required this.textEditingController,
-        this.iconData,
-        this.assetRefrence,
-        required this.lableString,
-        required this.isObscure,
-      }
-      );
+  InputTextWidget({
+    required this.textEditingController,
+    this.iconData,
+    this.assetRefrence,
+    required this.lableString,
+    required this.isObscure,
 
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return TextField(
+
       controller: textEditingController,
       decoration: InputDecoration(
         labelText: lableString,
-        prefixIcon: iconData !=null
+        prefixIcon: iconData != null
             ? Icon(iconData)
-            :Padding(
-          padding: const EdgeInsets.all(8),
-          child: Image.asset(assetRefrence!,width: 10,),
+            : Padding(
+              padding : const EdgeInsets.all(8),
+              child: Image.asset(assetRefrence!, width: 10),
+
         ),
         labelStyle: const TextStyle(
           fontSize: 18,
@@ -41,15 +42,15 @@ class InputTextWidget extends StatelessWidget {
             )
         ),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(
-              color: Colors.grey,
-            )
+         borderRadius: BorderRadius.circular(6),
+
+         borderSide: const BorderSide(
+          color: Colors.grey,
         ),
-
+    )
       ),
-      obscureText: isObscure,
-
+      obscureText: isObscure ,
+        style: const TextStyle(color: Colors.white)
 
     );
   }

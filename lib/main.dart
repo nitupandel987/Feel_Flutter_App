@@ -23,7 +23,6 @@ Future<void> main() async {
     },
   ));
 }
-
 // void main() async{
 //
 //
@@ -60,3 +59,23 @@ Future<void> main() async {
 //
 //   }
 // }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       title: 'Feel Educare',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData().copyWith(
+//         scaffoldBackgroundColor: Colors.black,
+
+
+//       ),
+//       home: LoginScreen(),
+//     );
+
+//   }
+// }
+

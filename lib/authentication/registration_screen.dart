@@ -37,6 +37,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //  // yhan
     // ),
          SingleChildScrollView(
+
          child: Center(
            child: Column(
              children: [
@@ -49,13 +50,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  "Create Account",
                  style: GoogleFonts.aBeeZee(
                    fontSize: 34,
-                   color: Colors.lightBlue,
+                   color: Colors.grey,
                     fontWeight: FontWeight.bold,
                  ) ,
                ),
 
+
+               Text(
+                 "To get Started Now",
+                 style: GoogleFonts.aBeeZee(
+                   fontSize: 34,
+                   color: Colors.grey,
+                 ) ,
+               ),
+
+
                const SizedBox(
-                 height: 10,
+                 height: 100,
                ),
 
                //profile avatar
@@ -64,20 +75,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  //Allow User to choose image
                   authenticationController.chooseImageFromGallery();
                  },
-
                  child: const CircleAvatar(
                    radius: 80,
-                   backgroundImage:
-
-                   AssetImage(
-                     "images/profile.jpg"
+                   backgroundImage: AssetImage(
+                     "images/profile.png"
                    ),
-                   backgroundColor: Colors.white,
+                   backgroundColor: Colors.black,
                  ),
                ),
 
                const SizedBox(
-                 height: 15,
+                 height: 25,
                ),
 
                 //User Name
@@ -93,10 +101,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    assetRefrence: '',
 
                  ),
+
                ),
 
                const SizedBox(
-                 height: 15,
+                 height: 25,
                ),
 
                Container(
@@ -138,15 +147,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                      }
                    },
 
-                 ),
-               ),
 
                const SizedBox(
                  height: 15,
                ),
-
-               //Email
-
                      Container(
                  width:  MediaQuery.of(context).size.width,
                  margin: const EdgeInsets.symmetric(horizontal: 20) ,
@@ -228,6 +232,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 
                const SizedBox(
+
                  height: 15,
                ),
 
@@ -274,8 +279,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                      width: MediaQuery.of(context).size.width - 38,
                      height: 54,
                      decoration: const BoxDecoration(
-                         color: Colors.blueAccent,
-
+                         color: Colors.white,
                          borderRadius: BorderRadius.all(
                              Radius.circular(10)
                          )
@@ -287,7 +291,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                              && userNameTextEditingController.text.isNotEmpty
                              && emailTextEditingController.text.isNotEmpty
                              && passTextEditingController.text.isNotEmpty)
-
                          {
                            setState(() {
                              showProgressBar = true;
@@ -298,9 +301,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                userNameTextEditingController.text,
                                emailTextEditingController.text,
                                passTextEditingController.text,
+
                                 desTextEditingController.text,
                                 dropdownValue,
-                             dobController.text,
+                               dobController.text,
 
                            );
 
@@ -344,10 +348,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            //send user to signup screen
                            Get.to(LoginScreen());
                          },
-                         child: const Text("Login",
+                         child: const Text("Login Now",
                            style: TextStyle(
                                fontSize: 18,
-                               color: Colors.black, // font color
+                               color: Colors.white,
                                fontWeight: FontWeight.bold
                            ),),
                        )
@@ -364,9 +368,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    progressColors: [
                      Colors.green,
                      Colors.blueAccent,
+                     Colors.red,
+                     Colors.amber,
+                     Colors.purpleAccent
                    ],
                    animationDuration: 3,
                    backColor: Colors.white30,
+
                  ),
 
                ),

@@ -40,6 +40,7 @@ class AuthenticationController extends GetxController{
     _pickedFile =  Rx<File?>(File(pickedImageFile!.path));
   }
 
+
   void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String userdescription,String userGender, String userdob) async{
     // Define your password requirements here
     final RegExp passwordRegExp = RegExp(r'^(?=.[0-9])(?=.[!@#$%^&])(?=.[a-zA-Z]).{8,}$');
@@ -49,8 +50,6 @@ class AuthenticationController extends GetxController{
           "Password must contain at least 8 characters, including numbers, special characters, and uppercase letters.");
       return; // Return without creating the account
     }
-
-
     try{
 
       //1.create user in the firebase authentication
@@ -68,7 +67,6 @@ class AuthenticationController extends GetxController{
         email: userEmail,
         image: imageDownloadUrl,
         uid: credential.user!.uid,
-        description: userdescription,
         gender: userGender,
         dob: userdob
 
