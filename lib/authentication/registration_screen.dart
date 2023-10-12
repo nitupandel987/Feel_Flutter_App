@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
-
+import 'package:intl/intl.dart';
 import '../global.dart';
 
 class RegistrationScreen extends StatefulWidget {
-
-    const RegistrationScreen({Key? key}) : super(key: key);
-
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
@@ -19,26 +16,35 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   TextEditingController userNameTextEditingController = TextEditingController();
-  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController desTextEditingController = TextEditingController();
   TextEditingController passTextEditingController = TextEditingController();
-
+  TextEditingController emailTextEditingController=TextEditingController();
+  TextEditingController dobController = TextEditingController();
   var authenticationController = AuthenticationController.instanceAuth;
-  String? selectedGender;
-
+  String dropdownValue = "Male";
 
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-       body: SingleChildScrollView(
+       body: Stack(
+         children:[
+    //      Container(
+    //          decoration: BoxDecoration(
+    //          image: DecorationImage(
+    //            image: AssetImage( "images/bg.png"),fit: BoxFit.fill,
+    // ),
+    // ),
+    //  // yhan
+    // ),
+         SingleChildScrollView(
+
          child: Center(
            child: Column(
              children: [
 
                const SizedBox(
-                 height: 100,
+                 height: 50,
                ),
-
-
 
                Text(
                  "Create Account",
@@ -102,36 +108,134 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                  height: 25,
                ),
 
-
-// Gender dropdown menu
                Container(
-                 width: MediaQuery.of(context).size.width,
-                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                 child: DropdownButtonFormField<String>(
-                   value: selectedGender,
-                   onChanged: (value) {
-                     setState(() {
-                       selectedGender = value;
-                     });
+                 width:  MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
+                 child: TextField(
+                   controller: dobController,
+                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.person),
+                     labelText: 'Select DateofBirth',
+                     labelStyle: const TextStyle(
+                       fontSize: 18,
+                     ),
+                     enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+
+                   ),
+                   style: TextStyle(fontSize: 16, color: Colors.black),
+                         onTap: () async{
+                     DateTime? pickeddate=await showDatePicker(
+                         context: context,
+                         initialDate: DateTime.now(),
+                         firstDate: DateTime(1990),
+                         lastDate: DateTime.now());
+                     if(pickeddate!=null){
+                       setState(() {
+                         dobController.text=DateFormat('yyyy-MM-dd').format(pickeddate);
+                       });
+                     }
                    },
-                   items: ['Male', 'Female', 'Other']
+
+
+               const SizedBox(
+                 height: 15,
+               ),
+                     Container(
+                 width:  MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
+                 child: DropdownButtonFormField<String>(
+
+                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.person),
+                     labelText: 'Select Gender',
+                     labelStyle: const TextStyle(
+                       fontSize: 18,
+                     ),
+                     enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+
+                   ),
+                   value: dropdownValue,
+                   items: <String>["Male", "Female", "Others"]
                        .map<DropdownMenuItem<String>>((String value) {
                      return DropdownMenuItem<String>(
                        value: value,
-                       child: Text(value),
+                       child: Text(
+                         value,
+                         style: TextStyle(fontSize: 16, color: Colors.black),
+                       ),
                      );
                    }).toList(),
+                   // Step 5.
+                   onChanged: (String? newValue) {
+                     setState(() {
+                       dropdownValue = newValue!;
+                     });
+                   },
+                 ),
+         ),
+
+               const SizedBox(
+                 height: 15,
+               ),
+
+               Container(
+                 width:  MediaQuery.of(context).size.width,
+                 margin: const EdgeInsets.symmetric(horizontal: 20) ,
+                 child: TextField(
+                   controller: desTextEditingController,
+                   maxLines: 2,
                    decoration: InputDecoration(
-                     labelText: 'Gender',
-                     hintText: 'Select Gender',
-                     prefixIcon: Icon(Icons.person_outline),
-                     border: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(10.0),
+                     prefixIcon: Icon(Icons.description),
+                     labelText: 'Description',
+                     labelStyle: const TextStyle(
+                       fontSize: 18,
                      ),
+                     enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(6),
+                         borderSide: const BorderSide(
+                           color: Colors.grey,
+                         )
+                     ),
+
                    ),
+                   style: TextStyle(fontSize: 16, color: Colors.black),
                  ),
                ),
-               //Email
+
+
+               const SizedBox(
+
+                 height: 15,
+               ),
+
                Container(
                  width:  MediaQuery.of(context).size.width,
                  margin: const EdgeInsets.symmetric(horizontal: 20) ,
@@ -140,16 +244,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    lableString: "Email",
                    iconData: Icons.email_outlined,
                    isObscure: false,
-                   assetRefrence: '',
-                 ),
-               ),
 
+                   assetRefrence: '',
+
+                 ),
+
+               ),
 
                const SizedBox(
-                 height: 25,
+                 height: 15,
                ),
-
-               //password
                Container(
                  width:  MediaQuery.of(context).size.width,
                  margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -162,7 +266,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                ),
 
                const SizedBox(
-                 height: 25,
+                 height: 15,
                ),
 
                //Login Button
@@ -197,7 +301,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                userNameTextEditingController.text,
                                emailTextEditingController.text,
                                passTextEditingController.text,
-                             selectedGender ?? '',
+
+                                desTextEditingController.text,
+                                dropdownValue,
+                               dobController.text,
+
                            );
 
                          }
@@ -230,6 +338,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            color: Colors.grey,
                            fontSize: 16,
                          ),),
+
+                       const SizedBox(
+                         height: 30,
+                       ),
+
                        InkWell(
                          onTap: (){
                            //send user to signup screen
@@ -244,6 +357,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                        )
                      ],
                    ),
+                   const SizedBox(
+                     height: 80,
+                   ),
+
                  ],
                ) : Container(
                  //show animation
@@ -259,11 +376,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                    backColor: Colors.white30,
 
                  ),
-               )
+
+               ),
              ],
            ),
          ),
        ),
+    ],
+     ),
      );
   }
 }
