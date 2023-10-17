@@ -24,20 +24,19 @@ class _MyPhoneState extends State<MyPhone> {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(left: 25, right: 25),
-        //alignment: Alignment.center,
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'images/icon.png',
-                width: 600,
-                height: 400,
-                alignment: Alignment.topCenter,
+                'assets/img1.png',
+                width: 150,
+                height: 150,
               ),
-              // SizedBox(
-              //   height: 1,
-              // ),
+              SizedBox(
+                height: 25,
+              ),
               Text(
                 "Phone Verification",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -46,7 +45,7 @@ class _MyPhoneState extends State<MyPhone> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone before getting started!",
+                "We need to register your phone without getting started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -106,7 +105,7 @@ class _MyPhoneState extends State<MyPhone> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent,
+                        primary: Colors.green.shade600,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
@@ -123,7 +122,6 @@ class _MyPhoneState extends State<MyPhone> {
 
                     },
                     child: Text("Send the code")),
-
               )
             ],
           ),

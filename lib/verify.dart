@@ -12,6 +12,16 @@ class MyVerify extends StatefulWidget {
 
 class _MyVerifyState extends State<MyVerify> {
   final FirebaseAuth auth=FirebaseAuth.instance;
+
+  void initState() {
+    super.initState();
+    // Check the authentication status when the widget is initialized
+    _checkAuthenticationStatus();
+  }
+
+  // Function to check if the user is authenticated
+  void _checkAuthenticationStatus() async {
+  }
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -55,15 +65,15 @@ class _MyVerifyState extends State<MyVerify> {
       ),
       body: Container(
         margin: EdgeInsets.only(left: 25, right: 25),
-        // alignment: Alignment.center,
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'images/icon.png',
-                width: 600,
-                height: 400,
+                'assets/img1.png',
+                width: 150,
+                height: 150,
               ),
               SizedBox(
                 height: 25,
@@ -76,7 +86,7 @@ class _MyVerifyState extends State<MyVerify> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone before getting started!",
+                "We need to register your phone without getting started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -105,7 +115,7 @@ class _MyVerifyState extends State<MyVerify> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent,
+                        primary: Colors.green.shade600,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
@@ -114,6 +124,7 @@ class _MyVerifyState extends State<MyVerify> {
 
                         // Sign the user in (or link) with the credential
                         await auth.signInWithCredential(credential);
+
                         Navigator.pushNamedAndRemoveUntil(context, "home", (route) => false);
                       }
                       catch(e){
